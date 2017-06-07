@@ -86,7 +86,7 @@ let handlePost = (req, res) => {
         let event = events[i];
         let sender = event.sender.id;
         let recipientId = event.recipient.id;
-        console.log('recipient ID for ben: ' + recipientId);
+        console.log('recipient ID for ben: ' + sender);
         if (process.env.MAINTENANCE_MODE && ((event.message && event.message.text) || event.postback)) {
             sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
         } else if (event.message && event.message.text) {
@@ -117,7 +117,6 @@ let handlePostSalesforce = (req, res) => {
     console.log('Salesforce reaches heroku POST with message: ' + test);
 
     sendMessage({text: `Salesforce is sending you a message`}, '1756827047932647');
-
     res.sendStatus(200);
 };
 
