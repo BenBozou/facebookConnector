@@ -116,7 +116,7 @@ let handlePostSalesforce = (req, res) => {
     let test = req.body.test;
     console.log('Salesforce reaches heroku POST with message: ' + test);
 
-    sendMessage({text: `Salesforce is sending you a message`}, '1756827047932647');
+    sendMessage({text: `Salesforce is sending you a message`}, '1272907342749383');
     res.sendStatus(200);
 };
 
