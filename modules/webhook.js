@@ -111,7 +111,8 @@ let handleGetSalesforce = (req, res) => {
 };
 
 let handlePostSalesforce = (req, res) => {
-    console.log('Salesforce reaches heroku POST with message: ' + req.body.test);
+    let test = req.body.test;
+    console.log('Salesforce reaches heroku POST with message: ' + test);
 
     res.sendStatus(200);
 };
