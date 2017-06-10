@@ -143,20 +143,6 @@ let createCase = (propertyId, customerName, customerId) => {
 
 };
 
-let handleGet = (req, res) => {
-    console.log('Salesforce reaches heroku GET with message: ' + req.body);
-
-    res.sendStatus(200);
-};
-
-let handlePost = (req, res) => {
-    let test = req.body.test;
-    console.log('Salesforce reaches heroku POST with message: ' + test);
-
-    //sendMessage({text: `Salesforce is sending you a message`}, '1272907342749383');
-    res.sendStatus(200);
-};
-
 login();
 
 exports.org = org;
