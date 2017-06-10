@@ -59,7 +59,9 @@ app.get('/webhookSalesforce', (req, res) => {
     res.sendStatus(200);
 });
 app.post('/webhookSalesforce', (req, res) => {
-    res.send('Error, wrong validation token');
+    let test = req.body.test;
+    console.log('Salesforce reaches heroku POST with message: ' + test);
+
     res.sendStatus(200);
 });
 
