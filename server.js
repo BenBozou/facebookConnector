@@ -62,7 +62,7 @@ app.get('/webhookSalesforce', (req, res) => {
 
 app.post('/webhookSalesforce', (req, res) => {
     let test = req.body.test;
-    console.log('Salesforce reaches heroku POST with message: ' + JSON.stringify(req));
+    console.log('Salesforce reaches heroku POST with message: ' + JSON.stringify(req.body));
     console.log('Salesforce reaches heroku POST with message: ' + test);
     let handler = handlers['searchHouse'];
     handler('1272907342749383');
