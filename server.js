@@ -6,7 +6,7 @@ var express = require('express'),
     handlers = require('./modules/handlers'),
     postbacks = require('./modules/postbacks'),
     uploads = require('./modules/uploads'),
-    salesforce = require('./modules/salesforce'),
+    //salesforce = require('./modules/salesforce'),
     FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN,
     app = express();
 
@@ -54,8 +54,8 @@ app.post('/webhook', (req, res) => {
     res.sendStatus(200);
 });
 
-app.get('/webhookSalesforce', salesforce.handleGet);
-app.post('/webhookSalesforce', salesforce.handlePost);
+//app.get('/webhookSalesforce', salesforce.handleGet);
+//app.post('/webhookSalesforce', salesforce.handlePost);
 
 
 app.listen(app.get('port'), function () {
