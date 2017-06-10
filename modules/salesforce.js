@@ -57,6 +57,7 @@ let findProperties = (params) => {
             if (err) {
                 reject("An error as occurred");
             } else {
+                console.log('found records in SF');
                 resolve(resp.records);
             }
         });
