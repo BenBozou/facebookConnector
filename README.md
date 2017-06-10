@@ -1,16 +1,22 @@
-## Salesforce Bot for Facebook Messenger
+# Salesforce Bot for Facebook Messenger
 
-A simple Salesforce bot for Facebook Messenger.
+A Salesforce-powered bot for the DreamHouse sample application.
 
-See [this blog post](http://coenraets.org/blog/2016/04/salesforce-bot-for-facebook-messenger/) for details.
+Follow the instructions below to create your own instance of the bot:
 
-### Create a Connected App
+### Step 1: Install the DreamHouse App
 
-1. In Setup, enter **Apps** in the quick find box, and click the Apps link
+If you haven't already done so, follow [these instructions](http://dreamhouse-site.herokuapp.com/installation/) to install the DreamHouse sample application.
+
+### Step 2: Create a Connected App
+
+If you haven't already done so, follow the steps below to create a Salesforce connected app:
+
+1. In Salesforce Setup, type **Apps** in the quick find box, and click the **Apps** link
 
 1. In the **Connected Apps** section, click **New**, and define the Connected App as follows:
 
-    - Connected App Name: MyConnectedApp
+    - Connected App Name: MyConnectedApp (or any name you want)
     - API Name: MyConnectedApp
     - Contact Email: enter your email address
     - Enabled OAuth Settings: Checked
@@ -18,7 +24,7 @@ See [this blog post](http://coenraets.org/blog/2016/04/salesforce-bot-for-facebo
     - Selected OAuth Scopes: Full Access (full)
     - Click **Save**
 
-### Deploy the Messenger Bot
+### Step 3: Deploy the Messenger Bot
 
 1. Make sure you are logged in to the [Heroku Dashboard](https://dashboard.heroku.com/)
 1. Click the button below to deploy the Messenger bot on Heroku:
@@ -34,7 +40,7 @@ See [this blog post](http://coenraets.org/blog/2016/04/salesforce-bot-for-facebo
     - For **SF_USER_NAME**, enter the the username of your Salesforce integration user
     - For **SF_PASSWORD**, enter the the username of your Salesforce integration user
 
-### Create a Facebook App
+### Step 4: Create a Facebook App
 
 1. Follow [these instructions](https://developers.facebook.com/docs/messenger-platform/quickstart) to create a Facebook app. You'll have to create a Facebook page, a Facebook application, and configure Messenger for your application.
 
