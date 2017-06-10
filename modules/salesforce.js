@@ -143,13 +143,13 @@ let createCase = (propertyId, customerName, customerId) => {
 
 };
 
-let handleGetSalesforce = (req, res) => {
+let handleGet = (req, res) => {
     console.log('Salesforce reaches heroku GET with message: ' + req.body);
 
     res.sendStatus(200);
 };
 
-let handlePostSalesforce = (req, res) => {
+let handlePost = (req, res) => {
     let test = req.body.test;
     console.log('Salesforce reaches heroku POST with message: ' + test);
 
