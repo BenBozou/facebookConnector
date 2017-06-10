@@ -54,8 +54,14 @@ app.post('/webhook', (req, res) => {
     res.sendStatus(200);
 });
 
-//app.get('/webhookSalesforce', salesforce.handleGet);
-//app.post('/webhookSalesforce', salesforce.handlePost);
+app.get('/webhookSalesforce', (req, res) => {
+    res.send('Error, wrong validation token');
+    res.sendStatus(200);
+});
+app.post('/webhookSalesforce', (req, res) => {
+    res.send('Error, wrong validation token');
+    res.sendStatus(200);
+});
 
 
 app.listen(app.get('port'), function () {
