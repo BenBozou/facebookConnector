@@ -55,7 +55,7 @@ app.post('/webhook', (req, res) => {
 });
 
 app.get('/webhookSalesforce', (req, res) => {
-    res.send('Error, wrong validation token');
+    res.send('Error, wrong validation token test');
     res.sendStatus(200);
 });
 
