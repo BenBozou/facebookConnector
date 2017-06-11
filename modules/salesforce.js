@@ -16,7 +16,6 @@ let org = nforce.createConnection({
 });
 
 let login = () => {
-    console.log('Process Login to org');
     org.authenticate({username: SF_USER_NAME, password: SF_PASSWORD}, err => {
         if (err) {
             console.error("Authentication error");
@@ -57,7 +56,6 @@ let findProperties = (params) => {
             if (err) {
                 reject("An error as occurred");
             } else {
-                console.log('found records in SF');
                 resolve(resp.records);
             }
         });
