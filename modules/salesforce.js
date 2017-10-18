@@ -27,8 +27,6 @@ let login = () => {
 };
 
 let findProperties = (params) => {
-    console.log('Logging into Salesforce');
-    login();
     console.log('Entering FindProperties');
     let where = "";
     if (params) {
