@@ -7,6 +7,7 @@ var express = require('express'),
     postbacks = require('./modules/postbacks'),
     uploads = require('./modules/uploads'),
     request = require('request'),
+    messenger = require('./modules/messenger'),
     //salesforce = require('./modules/salesforce'),
     FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN,
     app = express();
@@ -29,6 +30,7 @@ app.post('/webhook', (req, res) => {
     for (let i = 0; i < events.length; i++) {
         let event = events[i];
         let sender = event.sender.id;
+        console.log('------------ SENDER ----------- ' + sender);
         if (process.env.MAINTENANCE_MODE && ((event.message && event.message.text) || event.postback)) {
             sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
         } else if (event.message && event.message.text) {
