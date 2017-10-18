@@ -255,8 +255,9 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
                     }
                 });
             }
-            startLongPolling(affinityToken, sessionKey, session, lastSentRequest+1);
-
+            if (mapIdSession[customerId]) {
+                startLongPolling(affinityToken, sessionKey, session, lastSentRequest+1);
+            }
         } else {
             console.log('Error in Chasitor: ' + response.statusCode);
             console.log('result: ' + body);
