@@ -62,8 +62,8 @@ app.get('/webhookSalesforce', (req, res) => {
 
 
 
-    //res.send('Error, wrong validation token test');
-    //res.sendStatus(200);
+    res.send('Error, wrong validation token test');
+    res.sendStatus(200);
 });
 
 
@@ -157,10 +157,19 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest) => 
     function callback(error, response, body) {
         if (!error && (response.statusCode == 200 || response.statusCode == 204)) {
             console.log('result: ' + body);
-            var bodyJson = JSON.parse(body);
-            console.log('recieved ' + bodyJson.messages.length + ' messages');
-            console.log(bodyJson.messages);
-            console.log('continuing polling');
+            if (body != null && body =! '') {
+                var bodyJson = JSON.parse(body);
+                console.log('recieved ' + bodyJson.messages.length + ' messages');
+                console.log(bodyJson.messages);
+                console.log('continuing polling');
+
+                bodyJson.messages.forEach(message => {
+                    messageJson = JSON.parse(message);
+                    if (messageJson.type == 'ChatMessage') {
+                        messenger.send(messageJson.message.text, '1272907342749383');
+                    }
+                });
+            }
             startLongPolling(affinityToken, sessionKey, session, lastSentRequest+1);
 
         } else {
