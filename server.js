@@ -135,7 +135,8 @@ let startVisitorChat = (affinityToken, sessionKey, sessionId) => {
         if (!error && response.statusCode == 200) {
             console.log('result: ' + body);
         } else {
-            console.log('Error in Chasitor');
+            console.log('Error in Chasitor: ' + response.statusCode);
+            console.log('result: ' + body);
             console.log(error);
         }
     }
