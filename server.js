@@ -167,6 +167,7 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest) => 
 
                 bodyJson.messages.forEach(message => {
                     messageJson = JSON.parse(message);
+                    console.log('message recieved - ' + messageJson.type);
                     if (messageJson.type == 'ChatMessage') {
                         messenger.send(messageJson.message.text, '1272907342749383');
                     }
