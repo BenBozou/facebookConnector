@@ -6,6 +6,7 @@ var express = require('express'),
     handlers = require('./modules/handlers'),
     postbacks = require('./modules/postbacks'),
     uploads = require('./modules/uploads'),
+    request = require('request'),
     //salesforce = require('./modules/salesforce'),
     FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN,
     app = express();
@@ -56,6 +57,11 @@ app.post('/webhook', (req, res) => {
 });
 
 app.get('/webhookSalesforce', (req, res) => {
+
+    startSession();
+
+
+
     res.send('Error, wrong validation token test');
     res.sendStatus(200);
 });
@@ -71,6 +77,31 @@ app.post('/webhookSalesforce', (req, res) => {
     res.sendStatus(200);
 });
 
+
+let startSession = () => {
+
+    var options = {
+        url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/',
+        method: 'GET',
+        headers: {
+            "X-LIVEAGENT-AFFINITY" : null,
+            "X-LIVEAGENT-API-VERSION" : 41
+        }
+    };
+
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var info = JSON.parse(body);
+            console.log('Session Key' + info.key);
+            console.log('Session id' + info.id);
+            console.log('Session affinityToken' + info.affinityToken);
+            console.log('Session clientPollTimeout' + info.clientPollTimeout);
+        }
+    }
+
+    request(options, callback);
+
+}
 
 
 
