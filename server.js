@@ -81,7 +81,7 @@ app.post('/webhookSalesforce', (req, res) => {
 let startSession = () => {
 
     var options = {
-        url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/',
+        url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/System/SessionId',
         method: 'GET',
         headers: {
             "X-LIVEAGENT-AFFINITY" : null,
