@@ -109,12 +109,12 @@ let startVisitorChat = (affinityToken, sessionKey, sessionId) => {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChasitorInit',
         method: 'POST',
         headers: {
-            X-LIVEAGENT-AFFINITY : affinityToken,
-            X-LIVEAGENT-API-VERSION : 41,
-            X-LIVEAGENT-SESSION-KEY : sessionKey,
-            X-LIVEAGENT-SEQUENCE : 1
+            "X-LIVEAGENT-AFFINITY" : affinityToken,
+            "X-LIVEAGENT-API-VERSION" : 41,
+            "X-LIVEAGENT-SESSION-KEY" : sessionKey,
+            "X-LIVEAGENT-SEQUENCE" : 1
         },
-        json:true,
+        json: true,
         body: {
             organizationId:"00D20000000ou8W",
             deploymentId:"5720J000000TP0Z",
