@@ -105,6 +105,10 @@ let startSession = () => {
 }
 
 let startVisitorChat = (affinityToken, sessionKey, sessionId) => {
+    console.log('afinity token: ' + affinityToken);
+    console.log('session key: ' + sessionKey);
+    console.log('session id: ' + sessionId);
+
     var options = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChasitorInit',
         method: 'POST',
@@ -119,7 +123,7 @@ let startVisitorChat = (affinityToken, sessionKey, sessionId) => {
             organizationId:"00D20000000ou8W",
             deploymentId:"5720J000000TP0Z",
             buttonId:"5730J000000TPOD",
-            sessionId:sessionId,
+            sessionId: sessionId,
             userAgent:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
             language:"en-US",
             screenResolution:"1680x1050",
