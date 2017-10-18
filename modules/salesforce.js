@@ -16,6 +16,8 @@ let org = nforce.createConnection({
 });
 
 let login = () => {
+    console.log('UserName: ' - SF_USER_NAME);
+    console.log('Password: ' + SF_PASSWORD);
     org.authenticate({username: SF_USER_NAME, password: SF_PASSWORD}, err => {
         if (err) {
             console.error("Authentication error");
