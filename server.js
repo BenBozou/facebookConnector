@@ -255,6 +255,7 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
                     }
                 });
             }
+            console.log('--------------------- session map: ' + mapIdSession[customerId]);
             if (!(mapIdSession[customerId] == undefined)) {
                 startLongPolling(affinityToken, sessionKey, session, lastSentRequest+1);
             }
