@@ -26,7 +26,7 @@ app.set('port', process.env.PORT || 5000);
 
 app.use(bodyParser.json());
 
-app.get('/webhook', (req, res) => {
+/*app.get('/webhook', (req, res) => {
     if (req.query['hub.verify_token'] === FB_VERIFY_TOKEN) {
         res.send(req.query['hub.challenge']);
     } else {
@@ -66,9 +66,9 @@ app.post('/webhook', (req, res) => {
         }
     }
     res.sendStatus(200);
-});
+});*/
 
-app.get('/webhookSalesforce', (req, res) => {
+app.get('/webhook', (req, res) => {
 
     startSession('1111111111');
 
@@ -82,7 +82,7 @@ app.get('/webhookSalesforce', (req, res) => {
 });
 
 
-app.post('/webhookSalesforce', (req, res) => {
+app.post('/webhook', (req, res) => {
     let events = req.body.entry[0].messaging;
     console.log('Entered the webhook with ID : ' + req.body.entry[0].id);
     for (let i = 0; i < events.length; i++) {
