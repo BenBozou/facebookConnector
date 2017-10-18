@@ -80,7 +80,7 @@ app.post('/webhookSalesforce', (req, res) => {
 
 let startSession = () => {
 
-    var options = {
+    var optionsStartSession = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/System/SessionId?SessionId.ClientType=chasitor',
         method: 'GET',
         headers: {
@@ -89,7 +89,7 @@ let startSession = () => {
         }
     };
 
-    function callback(error, response, body) {
+    function callbackStartSession(error, response, body) {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
             console.log('Session Key: ' + info.key);
@@ -100,7 +100,7 @@ let startSession = () => {
         }
     }
 
-    request(options, callback);
+    request(optionsStartSession, callbackStartSession);
 
 }
 
