@@ -92,8 +92,13 @@ app.post('/webhookSalesforce', (req, res) => {
         if (process.env.MAINTENANCE_MODE && ((event.message && event.message.text) || event.postback)) {
             sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
         } else if (event.message && event.message.text) {
-            sendMessageSalesforce(event.message.text);
-
+            
+            if (!mapIdSession['1111111111']) {
+                startSession('1111111111');
+            }
+            else {
+                sendMessageSalesforce(event.message.text);
+            }
 
         } else if (event.postback) {
             let payload = event.postback.payload.split(",");
