@@ -129,6 +129,9 @@ app.post('/webhook', (req, res) => {
 
 let sendMessageSalesforce = (text, customerId) => {
 
+    console.log('Sending MEssage to Salesforce with afinity token: ' + mapIdSession[customerId].affinityToken);
+    console.log('Sending MEssage to Salesforce with session key: ' + mapIdSession[customerId].key);
+
     var options = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChatMessage',
         method: 'POST',
