@@ -114,6 +114,7 @@ let startVisitorChat = (affinityToken, sessionKey, sessionId) => {
             "X-LIVEAGENT-SESSION-KEY" : sessionKey,
             "X-LIVEAGENT-SEQUENCE" : 1
         },
+        json:true,
         body: {
             organizationId:"00D20000000ou8W",
             deploymentId:"5720J000000TP0Z",
