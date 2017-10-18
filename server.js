@@ -12,6 +12,16 @@ var express = require('express'),
     FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN,
     app = express();
 
+//initially create the map without any key
+var mapIdSession = {};
+
+function addValueToList(key, value) {
+    //if the list is already created for the "key", then uses it
+    //else creates new list for the "key" to store multiple values in it.
+    mapIdSession[key] = mapIdSession[key] || [];
+    mapIdSession[key].push(value);
+}
+
 app.set('port', process.env.PORT || 5000);
 
 app.use(bodyParser.json());
@@ -60,17 +70,48 @@ app.post('/webhook', (req, res) => {
 
 app.get('/webhookSalesforce', (req, res) => {
 
-    startSession();
+    startSession('1111111111');
 
 
 
-    res.send('Error, wrong validation token test');
-    res.sendStatus(200);
+    if (req.query['hub.verify_token'] === FB_VERIFY_TOKEN) {
+        res.send(req.query['hub.challenge']);
+    } else {
+        res.send('Error, wrong validation token');
+    }
 });
 
 
 app.post('/webhookSalesforce', (req, res) => {
-    let test = req.body.test;
+    let events = req.body.entry[0].messaging;
+    console.log('Entered the webhook with ID : ' + req.body.entry[0].id);
+    for (let i = 0; i < events.length; i++) {
+        let event = events[i];
+        let sender = event.sender.id;
+        console.log('------------ SENDER ----------- ' + sender);
+        if (process.env.MAINTENANCE_MODE && ((event.message && event.message.text) || event.postback)) {
+            sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
+        } else if (event.message && event.message.text) {
+            sendMessageSalesforce(event.message.text);
+
+
+        } else if (event.postback) {
+            let payload = event.postback.payload.split(",");
+            let postback = postbacks[payload[0]];
+            if (postback && typeof postback === "function") {
+                postback(sender, payload);
+            } else {
+                console.log("Postback " + postback + " is not defined");
+            }
+        } else if (event.message && event.message.attachments) {
+            uploads.processUpload(sender, event.message.attachments);
+        }
+    }
+    res.sendStatus(200);
+});
+
+
+/*    let test = req.body.test;
     console.log('Salesforce reaches heroku POST with message: ' + JSON.stringify(req.body));
     console.log('Salesforce reaches heroku POST with message: ' + test);
     let handler = handlers['searchHouse'];
@@ -78,9 +119,35 @@ app.post('/webhookSalesforce', (req, res) => {
     //1272907342749383
     res.sendStatus(200);
 });
+*/
 
+let sendMessageSalesforce = (text) => {
 
-let startSession = () => {
+    var options = {
+        url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChatMessage',
+        method: 'POST',
+        headers: {
+            "X-LIVEAGENT-AFFINITY" : mapIdSession['1111111111'].key,
+            "X-LIVEAGENT-SESSION-KEY" : mapIdSession['1111111111'].affinityToken,
+            "X-LIVEAGENT-API-VERSION" : 40
+        },
+        json: true,
+        body: {
+            text: text
+        }
+    };
+
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            
+        }
+    }
+
+    request(options, callback);
+
+}
+
+let startSession = (telNumber) => {
 
     var optionsStartSession = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/System/SessionId',
@@ -95,6 +162,7 @@ let startSession = () => {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
             startVisitorChat(info.affinityToken, info.key, info.id);
+            mapIdSession.addValueToList(telNumber, info);
         }
     }
 
