@@ -81,11 +81,11 @@ app.post('/webhookSalesforce', (req, res) => {
 let startSession = () => {
 
     var optionsStartSession = {
-        url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/System/SessionId?SessionId.ClientType=chasitor',
+        url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/System/SessionId',
         method: 'GET',
         headers: {
             "X-LIVEAGENT-AFFINITY" : null,
-            "X-LIVEAGENT-API-VERSION" : 41
+            "X-LIVEAGENT-API-VERSION" : 40
         }
     };
 
@@ -114,7 +114,7 @@ let startVisitorChat = (affinityToken, sessionKey, session) => {
         method: 'POST',
         headers: {
             "X-LIVEAGENT-AFFINITY" : affinityToken,
-            "X-LIVEAGENT-API-VERSION" : 41,
+            "X-LIVEAGENT-API-VERSION" : 40,
             "X-LIVEAGENT-SESSION-KEY" : sessionKey,
             "X-LIVEAGENT-SEQUENCE" : 1
         },
@@ -141,7 +141,6 @@ let startVisitorChat = (affinityToken, sessionKey, session) => {
         } else {
             console.log('Error in Chasitor: ' + response.statusCode);
             console.log('result: ' + body);
-            console.log(error);
         }
     }
 
