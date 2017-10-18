@@ -113,8 +113,8 @@ let startVisitorChat = (affinityToken, sessionKey, sessionId) => {
             "X-LIVEAGENT-API-VERSION" : 41,
             "X-LIVEAGENT-SESSION-KEY" : sessionKey,
             "X-LIVEAGENT-SEQUENCE" : 1
-        },
-        json:true,
+        }
+        /*json:true,
         body: {
             organizationId:"00D20000000ou8W",
             deploymentId:"5720J000000TP0Z",
@@ -128,7 +128,7 @@ let startVisitorChat = (affinityToken, sessionKey, sessionId) => {
             receiveQueueUpdates:true,
             prechatEntities:[{"entityName":"Contact","showOnCreate":"false","linkToEntityName":"Case","linkToEntityField":"ContactId","saveToTranscript":"ContactId","entityFieldsMaps":[{"fieldName":"LastName","label":"ContactLastName","doFind":"false","isExactMatch":"false","doCreate":"false"},{"fieldName":"FirstName","label":"ContactFirstName","doFind":"false","isExactMatch":"false","doCreate":"false"},{"fieldName":"SSN__c","label":"ContactSSN","doFind":"true","isExactMatch":"true","doCreate":"false"}]}],
             isPost:true
-        }
+        }*/
     };
 
     function callback(error, response, body) {
