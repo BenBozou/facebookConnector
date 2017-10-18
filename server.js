@@ -62,8 +62,8 @@ app.get('/webhookSalesforce', (req, res) => {
 
 
 
-    res.send('Error, wrong validation token test');
-    res.sendStatus(200);
+    //res.send('Error, wrong validation token test');
+    //res.sendStatus(200);
 });
 
 
@@ -120,9 +120,9 @@ let startVisitorChat = (affinityToken, sessionKey, session) => {
         },
         json: true,
         body: {
-            organizationId:"00D20000000ou8W",
-            deploymentId:"5720J000000TP0Z",
-            buttonId:"5730J000000TPOD",
+            organizationId:"00D9E0000000mRL",
+            deploymentId:"5729E0000008OSy",
+            buttonId:"5739E00000000Rk",
             sessionId: session,
             userAgent:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
             language:"en-US",
