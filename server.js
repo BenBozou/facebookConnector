@@ -255,7 +255,7 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
                     }
                 });
             }
-            if (mapIdSession[customerId]) {
+            if (!mapIdSession[customerId]) {
                 startLongPolling(affinityToken, sessionKey, session, lastSentRequest+1);
             }
         } else {
