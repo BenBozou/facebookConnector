@@ -131,7 +131,7 @@ let sendMessageSalesforce = (text, customerId) => {
 
     console.log('Sending MEssage to Salesforce with afinity token: ' + mapIdSession[customerId].affinityToken);
     console.log('Sending MEssage to Salesforce with session key: ' + mapIdSession[customerId].key);
-
+    console.log(mapIdSession);
     var options = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChatMessage',
         method: 'POST',
@@ -173,6 +173,7 @@ let startSession = (customerId) => {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
             startVisitorChat(info.affinityToken, info.key, info.id, customerId);
+            console.log(customerId);
             addValueToList(customerId, info);
         }
     }
