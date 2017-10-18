@@ -250,7 +250,7 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
                     if (messageJson.type == 'ChatMessage') {
                         messenger.send({text: `${messageJson.message.text}`}, '1272907342749383');
                     }
-                    if (messageJson.type == 'ChatEnded') {
+                    if (messageJson.type == 'ChatEnded' || messageJson.type == 'ChatRequestFail' ) {
                         delete mapIdSession[customerId];
                     }
                 });
