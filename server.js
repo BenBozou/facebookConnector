@@ -144,6 +144,8 @@ let sendMessageSalesforce = (text, customerId) => {
     };
 
     function callback(error, response, body) {
+        console.log('message sent with status code: ' + response.statusCode);
+        console.log('message sent with error: ' + error;
         if (!error && response.statusCode == 200) {
             
         }
