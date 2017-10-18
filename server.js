@@ -93,11 +93,12 @@ app.post('/webhook', (req, res) => {
             sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
         } else if (event.message && event.message.text) {
             
-            if (!mapIdSession['1111111111']) {
-                startSession('1111111111');
+            if (!mapIdSession[req.body.entry[0].id]) {
+                console.log('Is starting Session');
+                startSession(req.body.entry[0].id);
             }
             else {
-                sendMessageSalesforce(event.message.text);
+                sendMessageSalesforce(event.message.text, req.body.entry[0].id);
             }
 
         } else if (event.postback) {
@@ -126,14 +127,14 @@ app.post('/webhook', (req, res) => {
 });
 */
 
-let sendMessageSalesforce = (text) => {
+let sendMessageSalesforce = (text, customerId) => {
 
     var options = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChatMessage',
         method: 'POST',
         headers: {
-            "X-LIVEAGENT-AFFINITY" : mapIdSession['1111111111'].key,
-            "X-LIVEAGENT-SESSION-KEY" : mapIdSession['1111111111'].affinityToken,
+            "X-LIVEAGENT-AFFINITY" : mapIdSession[customerId].key,
+            "X-LIVEAGENT-SESSION-KEY" : mapIdSession[customerId].affinityToken,
             "X-LIVEAGENT-API-VERSION" : 40
         },
         json: true,
@@ -152,7 +153,7 @@ let sendMessageSalesforce = (text) => {
 
 }
 
-let startSession = (telNumber) => {
+let startSession = (customerId) => {
 
     var optionsStartSession = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/System/SessionId',
@@ -166,8 +167,8 @@ let startSession = (telNumber) => {
     function callbackStartSession(error, response, body) {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
-            startVisitorChat(info.affinityToken, info.key, info.id);
-            addValueToList(telNumber, info);
+            startVisitorChat(info.affinityToken, info.key, info.id, customerId);
+            addValueToList(customerId, info);
         }
     }
 
@@ -175,7 +176,7 @@ let startSession = (telNumber) => {
 
 }
 
-let startVisitorChat = (affinityToken, sessionKey, session) => {
+let startVisitorChat = (affinityToken, sessionKey, session, customerId) => {
 
     var options = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChasitorInit',
@@ -207,7 +208,7 @@ let startVisitorChat = (affinityToken, sessionKey, session) => {
         if (!error && response.statusCode == 200) {
             console.log('result: ' + body);
 
-            startLongPolling(affinityToken, sessionKey, session, 1);
+            startLongPolling(affinityToken, sessionKey, session, 1, customerId);
 
         } else {
             console.log('Error in Chasitor: ' + response.statusCode);
@@ -218,7 +219,7 @@ let startVisitorChat = (affinityToken, sessionKey, session) => {
     request(options, callback);
 }
 
-let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest) => {
+let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, customerId) => {
     var options = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/System/Messages',
         method: 'GET',
@@ -244,7 +245,7 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest) => 
                         messenger.send({text: `${messageJson.message.text}`}, '1272907342749383');
                     }
                     if (messageJson.type == 'ChatEnded') {
-                        delete mapIdSession['1111111111'];
+                        delete mapIdSession[customerId];
                     }
                 });
             }
