@@ -70,7 +70,7 @@ app.post('/webhook', (req, res) => {
 
 app.get('/webhook', (req, res) => {
 
-    startSession('1111111111');
+    
 
 
 
@@ -129,8 +129,8 @@ app.post('/webhook', (req, res) => {
 
 let sendMessageSalesforce = (text, customerId) => {
 
-    console.log('Sending MEssage to Salesforce with afinity token: ' + mapIdSession[customerId].affinityToken);
-    console.log('Sending MEssage to Salesforce with session key: ' + mapIdSession[customerId].key);
+    console.log('Sending MEssage to Salesforce with afinity token: ' + mapIdSession[customerId]);
+    console.log('Sending MEssage to Salesforce with session key: ' + mapIdSession[customerId]);
     console.log(mapIdSession);
     var options = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChatMessage',
