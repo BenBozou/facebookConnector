@@ -128,70 +128,9 @@ let startVisitorChat = (affinityToken, sessionKey, session) => {
             language:"en-US",
             screenResolution:"1680x1050",
             visitorName:"Ben",
-            prechatDetails:[
-            {
-                label:"CaseRecordType",
-                value:"01220000000VDiF",
-                entityMaps:[],
-                transcriptFields:[],
-                displayToAgent:"true",
-                doKnowledgeSearch:false
-            },
-            {
-                label:"ContactSSN",
-                value:"asdfasdfasfd",
-                entityMaps:[],
-                transcriptFields:[],
-                displayToAgent:"true",
-                doKnowledgeSearch:false
-            },
-            {
-                label:"CaseStatus",
-                value:"New",
-                entityMaps:[],
-                transcriptFields:[],
-                displayToAgent:"true",
-                doKnowledgeSearch:false
-            },
-            {
-                label:"CaseOrigin",
-                value:"Web",
-                entityMaps:[],
-                transcriptFields:[],
-                displayToAgent:"true",
-                doKnowledgeSearch:false
-            }],
+            prechatDetails:[],
             receiveQueueUpdates:true,
-            prechatEntities:[
-            {
-                entityName:"Contact",
-                showOnCreate:"false",
-                linkToEntityName:"Case",
-                linkToEntityField:"ContactId",
-                saveToTranscript:"ContactId",
-                entityFieldsMaps:
-                [{
-                    fieldName:"LastName",
-                    label:"ContactLastName",
-                    doFind:"false",
-                    isExactMatch:"false",
-                    doCreate:"false"
-                },
-                {
-                    fieldName:"FirstName",
-                    label:"ContactFirstName",
-                    doFind:"false",
-                    isExactMatch:"false",
-                    doCreate:"false"
-                },
-                {
-                    fieldName:"SSN__c",
-                    label:"ContactSSN",
-                    doFind:"true",
-                    isExactMatch:"true",
-                    doCreate:"false"
-                }]
-            }],
+            prechatEntities:[],
             isPost:true
         }
     };
