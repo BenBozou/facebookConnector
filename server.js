@@ -92,10 +92,6 @@ let startSession = () => {
     function callbackStartSession(error, response, body) {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
-            console.log('Session Key: ' + info.key);
-            console.log('Session id: ' + info.id);
-            console.log('Session affinityToken: ' + info.affinityToken);
-            console.log('Session clientPollTimeout: ' + info.clientPollTimeout);
             startVisitorChat(info.affinityToken, info.key, info.id);
         }
     }
@@ -105,9 +101,6 @@ let startSession = () => {
 }
 
 let startVisitorChat = (affinityToken, sessionKey, session) => {
-    console.log('afinity token: ' + affinityToken);
-    console.log('session key: ' + sessionKey);
-    console.log('session id: ' + session);
 
     var options = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChasitorInit',
@@ -138,6 +131,9 @@ let startVisitorChat = (affinityToken, sessionKey, session) => {
     function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log('result: ' + body);
+
+            startLongPolling(affinityToken, sessionKey, session, 1);
+
         } else {
             console.log('Error in Chasitor: ' + response.statusCode);
             console.log('result: ' + body);
@@ -145,6 +141,36 @@ let startVisitorChat = (affinityToken, sessionKey, session) => {
     }
 
     request(options, callback);
+}
+
+let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest) => {
+    var options = {
+        url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/System/Messages',
+        method: 'GET',
+        headers: {
+            "X-LIVEAGENT-AFFINITY" : affinityToken,
+            "X-LIVEAGENT-API-VERSION" : 40,
+            "X-LIVEAGENT-SESSION-KEY" : sessionKey,
+        }
+    };
+
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log('result: ' + body);
+            var bodyJson = JSON.parse(body);
+            console.log('recieved ' + bodyJson.messages.length + ' messages');
+            console.log(bodyJson.messages);
+            console.log('continuing polling');
+            startLongPolling(affinityToken, sessionKey, session, lastSentRequest+1);
+
+        } else {
+            console.log('Error in Chasitor: ' + response.statusCode);
+            console.log('result: ' + body);
+        }
+    }
+
+    request(options, callback);
+
 }
 
 
