@@ -15,7 +15,7 @@ var express = require('express'),
 //initially create the map without any key
 var mapIdSession = {};
 
-function addValueToList(key, value) {
+let addValueToList = (key, value) => {
     //if the list is already created for the "key", then uses it
     //else creates new list for the "key" to store multiple values in it.
     mapIdSession[key] = mapIdSession[key] || [];
@@ -167,7 +167,7 @@ let startSession = (telNumber) => {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
             startVisitorChat(info.affinityToken, info.key, info.id);
-            mapIdSession.addValueToList(telNumber, info);
+            addValueToList(telNumber, info);
         }
     }
 
