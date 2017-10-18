@@ -10,13 +10,13 @@ let nforce = require('nforce'),
 let org = nforce.createConnection({
     clientId: SF_CLIENT_ID,
     clientSecret: SF_CLIENT_SECRET,
-    redirectUri: 'https://powerful-bayou-91087.herokuapp.com/',
+    redirectUri: 'https://whispering-forest-81239.herokuapp.com/',
     mode: 'single',
     autoRefresh: true
 });
 
 let login = () => {
-    console.log('UserName: ' - SF_USER_NAME);
+    console.log('UserName: ' + SF_USER_NAME);
     console.log('Password: ' + SF_PASSWORD);
     org.authenticate({username: SF_USER_NAME, password: SF_PASSWORD}, err => {
         if (err) {
