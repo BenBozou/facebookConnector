@@ -256,9 +256,9 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
                 });
             }
             console.log('--------------------- session map: ' + mapIdSession[customerId]);
-            if (!(mapIdSession[customerId] == undefined)) {
+            //if (!(mapIdSession[customerId] == undefined)) {
                 startLongPolling(affinityToken, sessionKey, session, lastSentRequest+1);
-            }
+            //}
         } else {
             console.log('Error in Chasitor: ' + response.statusCode);
             console.log('result: ' + body);
