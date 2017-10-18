@@ -157,7 +157,7 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest) => 
     function callback(error, response, body) {
         if (!error && (response.statusCode == 200 || response.statusCode == 204)) {
             console.log('result: ' + body);
-            if (body != null && body =! '') {
+            if (!body && !(body == '')) {
                 var bodyJson = JSON.parse(body);
                 console.log('recieved ' + bodyJson.messages.length + ' messages');
                 console.log(bodyJson.messages);
