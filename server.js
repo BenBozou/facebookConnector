@@ -165,13 +165,12 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest) => 
                 console.log(bodyJson.messages);
                 console.log('continuing polling');
 
-                /*bodyJson.messages.forEach(message => {
-                    messageJson = JSON.parse(message);
+                bodyJson.messages.forEach(messageJson => {
                     console.log('message recieved - ' + messageJson.type);
                     if (messageJson.type == 'ChatMessage') {
                         messenger.send(messageJson.message.text, '1272907342749383');
                     }
-                });*/
+                });
             }
             startLongPolling(affinityToken, sessionKey, session, lastSentRequest+1);
 
