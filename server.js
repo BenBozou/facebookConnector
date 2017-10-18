@@ -133,8 +133,8 @@ let sendMessageSalesforce = (text, customerId) => {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChatMessage',
         method: 'POST',
         headers: {
-            "X-LIVEAGENT-AFFINITY" : mapIdSession[customerId].key,
-            "X-LIVEAGENT-SESSION-KEY" : mapIdSession[customerId].affinityToken,
+            "X-LIVEAGENT-AFFINITY" : mapIdSession[customerId].affinityToken,
+            "X-LIVEAGENT-SESSION-KEY" : mapIdSession[customerId].key,
             "X-LIVEAGENT-API-VERSION" : 40
         },
         json: true,
