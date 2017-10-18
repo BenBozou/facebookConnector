@@ -129,15 +129,15 @@ app.post('/webhook', (req, res) => {
 
 let sendMessageSalesforce = (text, customerId) => {
 
-    console.log('Sending MEssage to Salesforce with afinity token: ' + mapIdSession[customerId]);
-    console.log('Sending MEssage to Salesforce with session key: ' + mapIdSession[customerId]);
+    console.log('Sending MEssage to Salesforce with afinity token: ' + mapIdSession[customerId][0].affinityToken);
+    console.log('Sending MEssage to Salesforce with session key: ' + mapIdSession[customerId][0].key);
     console.log(mapIdSession);
     var options = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChatMessage',
         method: 'POST',
         headers: {
-            "X-LIVEAGENT-AFFINITY" : mapIdSession[customerId].affinityToken,
-            "X-LIVEAGENT-SESSION-KEY" : mapIdSession[customerId].key,
+            "X-LIVEAGENT-AFFINITY" : mapIdSession[customerId][0].affinityToken,
+            "X-LIVEAGENT-SESSION-KEY" : mapIdSession[customerId][0].key,
             "X-LIVEAGENT-API-VERSION" : 40
         },
         json: true,
