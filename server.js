@@ -104,10 +104,10 @@ let startSession = () => {
 
 }
 
-let startVisitorChat = (affinityToken, sessionKey, sessionId) => {
+let startVisitorChat = (affinityToken, sessionKey, session) => {
     console.log('afinity token: ' + affinityToken);
     console.log('session key: ' + sessionKey);
-    console.log('session id: ' + sessionId);
+    console.log('session id: ' + session);
 
     var options = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChasitorInit',
@@ -123,14 +123,75 @@ let startVisitorChat = (affinityToken, sessionKey, sessionId) => {
             organizationId:"00D20000000ou8W",
             deploymentId:"5720J000000TP0Z",
             buttonId:"5730J000000TPOD",
-            sessionId: sessionId,
+            sessionId: session,
             userAgent:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
             language:"en-US",
             screenResolution:"1680x1050",
             visitorName:"Ben",
-            prechatDetails:[{"label":"CaseRecordType","value":"01220000000VDiF","entityMaps":[],"transcriptFields":[],"displayToAgent":"true","doKnowledgeSearch":false},{"label":"ContactSSN","value":"asdfasdfasfd","entityMaps":[],"transcriptFields":[],"displayToAgent":"true","doKnowledgeSearch":false},{"label":"CaseStatus","value":"New","entityMaps":[],"transcriptFields":[],"displayToAgent":"true","doKnowledgeSearch":false},{"label":"CaseOrigin","value":"Web","entityMaps":[],"transcriptFields":[],"displayToAgent":"true","doKnowledgeSearch":false}],
+            prechatDetails:[
+            {
+                label:"CaseRecordType",
+                value:"01220000000VDiF",
+                entityMaps:[],
+                transcriptFields:[],
+                displayToAgent:"true",
+                doKnowledgeSearch:false
+            },
+            {
+                label:"ContactSSN",
+                value:"asdfasdfasfd",
+                entityMaps:[],
+                transcriptFields:[],
+                displayToAgent:"true",
+                doKnowledgeSearch:false
+            },
+            {
+                label:"CaseStatus",
+                value:"New",
+                entityMaps:[],
+                transcriptFields:[],
+                displayToAgent:"true",
+                doKnowledgeSearch:false
+            },
+            {
+                label:"CaseOrigin",
+                value:"Web",
+                entityMaps:[],
+                transcriptFields:[],
+                displayToAgent:"true",
+                doKnowledgeSearch:false
+            }],
             receiveQueueUpdates:true,
-            prechatEntities:[{"entityName":"Contact","showOnCreate":"false","linkToEntityName":"Case","linkToEntityField":"ContactId","saveToTranscript":"ContactId","entityFieldsMaps":[{"fieldName":"LastName","label":"ContactLastName","doFind":"false","isExactMatch":"false","doCreate":"false"},{"fieldName":"FirstName","label":"ContactFirstName","doFind":"false","isExactMatch":"false","doCreate":"false"},{"fieldName":"SSN__c","label":"ContactSSN","doFind":"true","isExactMatch":"true","doCreate":"false"}]}],
+            prechatEntities:[
+            {
+                entityName:"Contact",
+                showOnCreate:"false",
+                linkToEntityName:"Case",
+                linkToEntityField:"ContactId",
+                saveToTranscript:"ContactId",
+                entityFieldsMaps:
+                [{
+                    fieldName:"LastName",
+                    label:"ContactLastName",
+                    doFind:"false",
+                    isExactMatch:"false",
+                    doCreate:"false"
+                },
+                {
+                    fieldName:"FirstName",
+                    label:"ContactFirstName",
+                    doFind:"false",
+                    isExactMatch:"false",
+                    doCreate:"false"
+                },
+                {
+                    fieldName:"SSN__c",
+                    label:"ContactSSN",
+                    doFind:"true",
+                    isExactMatch:"true",
+                    doCreate:"false"
+                }]
+            }],
             isPost:true
         }
     };
