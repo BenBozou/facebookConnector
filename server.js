@@ -88,7 +88,7 @@ app.post('/webhook', (req, res) => {
             sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
         } else if (event.message && event.message.text) {
             if (!mapIdSession[req.body.entry[0].id]) {
-                startSession(req.body.entry[0].id);
+                startSession(event.message.text, req.body.entry[0].id);
             }
             else {
                 sendMessageSalesforce(event.message.text, req.body.entry[0].id);
@@ -144,7 +144,7 @@ let sendMessageSalesforce = (text, customerId) => {
 
 }
 
-let startSession = (customerId) => {
+let startSession = (text, customerId) => {
 
     var optionsStartSession = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/System/SessionId',
@@ -158,7 +158,7 @@ let startSession = (customerId) => {
     function callbackStartSession(error, response, body) {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
-            startVisitorChat(info.affinityToken, info.key, info.id, customerId);
+            startVisitorChat(info.affinityToken, info.key, info.id, customerId, text);
             addValueToList(customerId, info);
         }
     }
@@ -167,7 +167,7 @@ let startSession = (customerId) => {
 
 }
 
-let startVisitorChat = (affinityToken, sessionKey, session, customerId) => {
+let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) => {
 
     var options = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChasitorInit',
@@ -197,6 +197,7 @@ let startVisitorChat = (affinityToken, sessionKey, session, customerId) => {
 
     function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
+            sendMessageSalesforce(text, customerId);
             startLongPolling(affinityToken, sessionKey, session, 1, customerId);
         } else {
             console.log('Error in Chasitor: ' + response.statusCode);
