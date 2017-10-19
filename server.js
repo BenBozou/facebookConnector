@@ -12,12 +12,9 @@ var express = require('express'),
     FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN,
     app = express();
 
-//initially create the map without any key
 var mapIdSession = {};
 
 let addValueToList = (key, value) => {
-    //if the list is already created for the "key", then uses it
-    //else creates new list for the "key" to store multiple values in it.
     mapIdSession[key] = mapIdSession[key] || [];
     mapIdSession[key].push(value);
 }
@@ -84,23 +81,18 @@ app.get('/webhook', (req, res) => {
 
 app.post('/webhook', (req, res) => {
     let events = req.body.entry[0].messaging;
-    console.log('Entered the webhook with ID : ' + req.body.entry[0].id);
     for (let i = 0; i < events.length; i++) {
         let event = events[i];
         let sender = event.sender.id;
-        console.log('------------ SENDER ----------- ' + sender);
         if (process.env.MAINTENANCE_MODE && ((event.message && event.message.text) || event.postback)) {
             sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
         } else if (event.message && event.message.text) {
-            
             if (!mapIdSession[req.body.entry[0].id]) {
-                console.log('Is starting Session');
                 startSession(req.body.entry[0].id);
             }
             else {
                 sendMessageSalesforce(event.message.text, req.body.entry[0].id);
             }
-
         } else if (event.postback) {
             let payload = event.postback.payload.split(",");
             let postback = postbacks[payload[0]];
@@ -128,10 +120,6 @@ app.post('/webhook', (req, res) => {
 */
 
 let sendMessageSalesforce = (text, customerId) => {
-
-    console.log('Sending MEssage to Salesforce with afinity token: ' + mapIdSession[customerId][0].affinityToken);
-    console.log('Sending MEssage to Salesforce with session key: ' + mapIdSession[customerId][0].key);
-    console.log(mapIdSession);
     var options = {
         url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChatMessage',
         method: 'POST',
@@ -147,8 +135,6 @@ let sendMessageSalesforce = (text, customerId) => {
     };
 
     function callback(error, response, body) {
-        console.log('message sent with status code: ' + response.statusCode);
-        console.log('message sent with error: ' + body);
         if (!error && response.statusCode == 200) {
             
         }
@@ -173,7 +159,6 @@ let startSession = (customerId) => {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
             startVisitorChat(info.affinityToken, info.key, info.id, customerId);
-            console.log(customerId);
             addValueToList(customerId, info);
         }
     }
@@ -212,10 +197,7 @@ let startVisitorChat = (affinityToken, sessionKey, session, customerId) => {
 
     function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log('result: ' + body);
-
             startLongPolling(affinityToken, sessionKey, session, 1, customerId);
-
         } else {
             console.log('Error in Chasitor: ' + response.statusCode);
             console.log('result: ' + body);
@@ -238,15 +220,9 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
 
     function callback(error, response, body) {
         if (!error && (response.statusCode == 200 || response.statusCode == 204)) {
-            console.log('result: ' + body);
             if (!(body == '' || body == 'OK')) {
                 var bodyJson = JSON.parse(body);
-                console.log('recieved ' + bodyJson.messages.length + ' messages');
-                console.log(bodyJson.messages);
-                console.log('continuing polling');
-
                 bodyJson.messages.forEach(messageJson => {
-                    console.log('message recieved - ' + messageJson.type);
                     if (messageJson.type == 'ChatMessage') {
                         messenger.send({text: `${messageJson.message.text}`}, '1272907342749383');
                     }
@@ -255,7 +231,6 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
                     }
                 });
             }
-            console.log('--------------------- session map: ' + mapIdSession[customerId]);
             if (!(mapIdSession[customerId] == undefined)) {
                 startLongPolling(affinityToken, sessionKey, session, lastSentRequest+1, customerId);
             }
