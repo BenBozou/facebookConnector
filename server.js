@@ -182,7 +182,7 @@ let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) =>
         body: {
             organizationId:"00D9E0000000mRL",
             deploymentId:"5729E0000008OSy",
-            buttonId:"5739E00000000Rk",
+            buttonId:"5739E00000000Ru",
             sessionId: session,
             userAgent:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
             language:"en-US",
