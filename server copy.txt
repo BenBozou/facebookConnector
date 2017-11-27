@@ -158,7 +158,6 @@ let startSession = (text, customerId) => {
     function callbackStartSession(error, response, body) {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
-            console.log(info.affinityToken + ' ' + info.key + ' ' + info.id);
             startVisitorChat(info.affinityToken, info.key, info.id, customerId, text);
             addValueToList(customerId, info);
         }
