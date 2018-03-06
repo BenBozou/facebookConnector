@@ -171,7 +171,7 @@ let startSession = (text, customerId) => {
 let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) => {
 
     var options = {
-        url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChasitorInit',
+        url: 'https://d.la1-c1cs-lon.salesforceliveagent.com/chat/rest/Chasitor/ChasitorInit',
         method: 'POST',
         headers: {
             "X-LIVEAGENT-AFFINITY" : affinityToken,
@@ -181,9 +181,9 @@ let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) =>
         },
         json: true,
         body: {
-            organizationId:"00D9E0000000mRL",
-            deploymentId:"5729E0000008OSy",
-            buttonId:"5739E00000000Ru",
+            organizationId:"00D25000000E8pk",
+            deploymentId:"572580000008RqV",
+            buttonId:"573580000008SRm",
             sessionId: session,
             userAgent:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
             language:"en-US",
@@ -211,7 +211,7 @@ let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) =>
 
 let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, customerId) => {
     var options = {
-        url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/System/Messages',
+        url: 'https://d.la1-c1cs-lon.salesforceliveagent.com/chat/rest/System/Messages',
         method: 'GET',
         headers: {
             "X-LIVEAGENT-AFFINITY" : affinityToken,
