@@ -121,7 +121,7 @@ app.post('/webhook', (req, res) => {
 
 let sendMessageSalesforce = (text, customerId) => {
     var options = {
-        url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/Chasitor/ChatMessage',
+        url: 'https://d.la1-c1cs-lon.salesforceliveagent.com/chat/rest/Chasitor/ChatMessage',
         method: 'POST',
         headers: {
             "X-LIVEAGENT-AFFINITY" : mapIdSession[customerId][0].affinityToken,
@@ -147,7 +147,7 @@ let sendMessageSalesforce = (text, customerId) => {
 let startSession = (text, customerId) => {
 
     var optionsStartSession = {
-        url: 'https://d.la1-c1cs-par.salesforceliveagent.com/chat/rest/System/SessionId',
+        url: 'https://d.la1-c1cs-lon.salesforceliveagent.com/chat/rest/System/SessionId',
         method: 'GET',
         headers: {
             "X-LIVEAGENT-AFFINITY" : null,
