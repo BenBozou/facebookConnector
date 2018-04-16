@@ -10,12 +10,14 @@ let nforce = require('nforce'),
 let org = nforce.createConnection({
     clientId: SF_CLIENT_ID,
     clientSecret: SF_CLIENT_SECRET,
-    redirectUri: 'http://localhost:3000/oauth/_callback',
+    redirectUri: 'https://whispering-forest-81239.herokuapp.com/',
     mode: 'single',
     autoRefresh: true
 });
 
 let login = () => {
+    console.log('UserName: ' + SF_USER_NAME);
+    console.log('Password: ' + SF_PASSWORD);
     org.authenticate({username: SF_USER_NAME, password: SF_PASSWORD}, err => {
         if (err) {
             console.error("Authentication error");
@@ -27,6 +29,7 @@ let login = () => {
 };
 
 let findProperties = (params) => {
+    console.log('Entering FindProperties');
     let where = "";
     if (params) {
         let parts = [];
@@ -141,20 +144,6 @@ let createCase = (propertyId, customerName, customerId) => {
         });
     });
 
-};
-
-let handleGet = (req, res) => {
-    console.log('Salesforce reaches heroku GET with message: ' + req.body);
-
-    res.sendStatus(200);
-};
-
-let handlePost = (req, res) => {
-    let test = req.body.test;
-    console.log('Salesforce reaches heroku POST with message: ' + test);
-
-    sendMessage({text: `Salesforce is sending you a message`}, '1272907342749383');
-    res.sendStatus(200);
 };
 
 login();
