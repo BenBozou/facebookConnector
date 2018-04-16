@@ -12,6 +12,10 @@ var express = require('express'),
     FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN,
     app = express();
 
+
+
+
+
 var mapIdSession = {};
 
 let addValueToList = (key, value) => {
