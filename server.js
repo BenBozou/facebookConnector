@@ -306,7 +306,9 @@ let sendRichMessageFacebook = (message, text) => {
         buttons.push({ "content_type":"text", "title":element.text, "payload":message.type + ':' + element.text + ':' + i});
         i++;
     });
-
+    if (!text) {
+        text = 'תבחור:';
+    }
     var message = { "text": text, "quick_replies": buttons};
     messenger.send(message, '1272907342749383');
 
