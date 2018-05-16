@@ -93,7 +93,7 @@ app.post('/webhook', (req, res) => {
                 startSession(event.message.text, req.body.entry[0].id);
             }
             else {
-                sendMessageSalesforce(event.message.text, req.body.entry[0].id);
+                sendMessageSalesforceExtended(event.message.text, req.body.entry[0].id);
             }
         } else if (event.postback) {
             let payload = event.postback.payload.split(",");
@@ -120,6 +120,13 @@ app.post('/webhook', (req, res) => {
     res.sendStatus(200);
 });
 */
+let sendMessageSalesforceExtended = (text, customerId) => {
+    if (text.startsWith('ChatWindowMenu')) {
+        sendMessageSalesforceRich(text, customerId);
+    } else {
+        sendMessageSalesforce(text, customerId);
+    }
+}
 
 let sendMessageSalesforce = (text, customerId) => {
     var options = {
@@ -133,6 +140,34 @@ let sendMessageSalesforce = (text, customerId) => {
         json: true,
         body: {
             text: text
+        }
+    };
+
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            
+        }
+    }
+
+    request(options, callback);
+
+}
+
+let sendMessageSalesforceRich = (text, customerId) => {
+    var res = text.split(":");
+    console.log('Rich Message Send');
+    console.log(res);
+    var options = {
+        url: endpoint + 'Chasitor/RichMessage',
+        method: 'POST',
+        headers: {
+            "X-LIVEAGENT-AFFINITY" : mapIdSession[customerId][0].affinityToken,
+            "X-LIVEAGENT-SESSION-KEY" : mapIdSession[customerId][0].key,
+            "X-LIVEAGENT-API-VERSION" : 42
+        },
+        json: true,
+        body: {
+            {"actions":[{"type":res[0],"index":res[2],"dialogId":null,"value":res[1]}]}
         }
     };
 
@@ -263,10 +298,11 @@ let sendRichMessageFacebook = (items) => {
     console.log(items);
 
     var buttons = [];
-
+    var i = 0;
     items.forEach(element => {
         console.log(element);
-        buttons.push({ "content_type":"text", "title":element.text, "payload":"<POSTBACK_PAYLOAD>"});
+        buttons.push({ "content_type":"text", "title":element.text, "payload":'ChatWindowMenu:' + element.text + ':' + i});
+        i++;
     });
 
     var message = { "text": "", "quick_replies": buttons};
