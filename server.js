@@ -83,18 +83,16 @@ app.get('/webhook', (req, res) => {
 
 app.post('/webhook', (req, res) => {
     let events = req.body.entry[0].messaging;
+    var text;
+    var payload;
     for (let i = 0; i < events.length; i++) {
         let event = events[i];
         let sender = event.sender.id;
         if (process.env.MAINTENANCE_MODE && ((event.message && event.message.text) || event.postback)) {
             sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
         } else if (event.message && event.message.text) {
-            if (!mapIdSession[req.body.entry[0].id]) {
-                startSession(event.message.text, req.body.entry[0].id);
-            }
-            else {
-                sendMessageSalesforceExtended(event.message.text, req.body.entry[0].id);
-            }
+            text = event.message.text;
+            
         } else if (event.postback) {
             /*let payload = event.postback.payload.split(",");
             let postback = postbacks[payload[0]];
@@ -103,11 +101,24 @@ app.post('/webhook', (req, res) => {
             } else {
                 console.log("Postback " + postback + " is not defined");
             }*/
-            sendMessageSalesforceExtended(event.postback.payload, req.body.entry[0].id);
+            payload = event.postback.payload;
+            
         } else if (event.message && event.message.attachments) {
             uploads.processUpload(sender, event.message.attachments);
         }
     }
+
+    if (payload) {
+        sendMessageSalesforceExtended(event.postback.payload, req.body.entry[0].id);
+    } else if (text) {
+        if (!mapIdSession[req.body.entry[0].id]) {
+            startSession(event.message.text, req.body.entry[0].id);
+        }
+        else {
+            sendMessageSalesforceExtended(event.message.text, req.body.entry[0].id);
+        }
+    }
+
     res.sendStatus(200);
 });
 
