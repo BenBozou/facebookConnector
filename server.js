@@ -232,6 +232,14 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
                     if (messageJson.type == 'ChatMessage') {
                         messenger.send({text: `${messageJson.message.text}`}, '1272907342749383');
                     }
+                    if (messageJson.type == 'RichMessage') {
+                        if (messageJson.message.type == 'ChatWindowMenu') {
+                            sendRichMessageFacebook(messageJson.message.items);
+                        } else {
+                            messenger.send({text: `${messageJson.message.text}`}, '1272907342749383');
+                        }
+                        
+                    }
                     if (messageJson.type == 'ChatEnded' || messageJson.type == 'ChatRequestFail' ) {
                         delete mapIdSession[customerId];
                     }
@@ -249,6 +257,23 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
     request(options, callback);
 
 }
+
+let sendRichMessageFacebook = (items) => {
+
+    console.log(items);
+    var buttons = [  ];
+
+    items.forEach(element => {
+        console.log(element);
+        buttons.add({ "type":"postback", "title":element.text, "payload":"DEVELOPER_DEFINED_PAYLOAD" })
+    });
+
+    var message = { "attachment":{ "type":"template", "payload":{ "template_type":"button", "text":"Try the postback button!", "buttons": buttons } } }
+    messenger.send(message, '1272907342749383');
+
+}
+
+
 
 
 app.listen(app.get('port'), function () {
