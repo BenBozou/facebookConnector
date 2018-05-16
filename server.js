@@ -261,17 +261,21 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
         if (!error && (response.statusCode == 200 || response.statusCode == 204)) {
             if (!(body == '' || body == 'OK')) {
                 console.log(body);
+                var text = '';
+                var richMessage = false;
                 if (body.includes('RichMessage')) {
-                    console.log('------------ Rich message identified -------------');
+                    richMessage = true;
                 }
                 var bodyJson = JSON.parse(body);
                 bodyJson.messages.forEach(messageJson => {
-                    if (messageJson.type == 'ChatMessage') {
+                    if (messageJson.type == 'ChatMessage' && !richMessage) {
                         messenger.send({text: `${messageJson.message.text}`}, '1272907342749383');
+                    } else if (messageJson.type == 'ChatMessage' && richMessage) {
+                        text = messageJson.message.text;
                     }
                     if (messageJson.type == 'RichMessage') {
                         if (messageJson.message.type == 'ChatWindowMenu' || messageJson.message.type == 'ChatWindowButton') {
-                            sendRichMessageFacebook(messageJson.message);
+                            sendRichMessageFacebook(messageJson.message, text);
                         } else {
                             messenger.send({text: `${messageJson.message.text}`}, '1272907342749383');
                         }
@@ -295,7 +299,7 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
 
 }
 
-let sendRichMessageFacebook = (message) => {
+let sendRichMessageFacebook = (message, text) => {
     var buttons = [];
     var i = 0;
     message.items.forEach(element => {
@@ -303,7 +307,7 @@ let sendRichMessageFacebook = (message) => {
         i++;
     });
 
-    var message = { "text": ".", "quick_replies": buttons};
+    var message = { "text": text, "quick_replies": buttons};
     messenger.send(message, '1272907342749383');
 
 }
