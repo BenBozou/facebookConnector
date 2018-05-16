@@ -94,7 +94,7 @@ app.post('/webhook', (req, res) => {
             }
             else {
                 if (event.message.quick_reply) {
-                    sendMessageSalesforceRich(event.message.quick_reply, req.body.entry[0].id);
+                    sendMessageSalesforceRich(event.message.quick_reply.payload, req.body.entry[0].id);
                 } else {
                     sendMessageSalesforce(event.message.text, req.body.entry[0].id);
                 }
