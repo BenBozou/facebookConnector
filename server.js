@@ -154,8 +154,7 @@ let sendMessageSalesforce = (text, customerId) => {
 
 let sendMessageSalesforceRich = (text, customerId) => {
     var res = text.split(":");
-    console.log('Rich Message Send');
-    console.log(res);
+    console.log('' + res);
     var options = {
         url: endpoint + 'Chasitor/RichMessage',
         method: 'POST',
