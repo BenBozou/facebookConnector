@@ -261,14 +261,15 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
 let sendRichMessageFacebook = (items) => {
 
     console.log(items);
-    var buttons = [  ];
+
+    var buttons = [];
 
     items.forEach(element => {
         console.log(element);
-        buttons.push({ "type":"postback", "title":element.text, "payload":"DEVELOPER_DEFINED_PAYLOAD" })
+        buttons.push({ "content_type":"text", "title":element.text, "payload":"<POSTBACK_PAYLOAD>"});
     });
 
-    var message = { "attachment":{ "type":"template", "payload":{ "template_type":"button", "text":"Try the postback button!", "buttons": buttons } } }
+    var message = { "text": "Here is a quick reply!", "quick_replies": buttons};
     messenger.send(message, '1272907342749383');
 
 }
