@@ -93,17 +93,17 @@ app.post('/webhook', (req, res) => {
                 startSession(event.message.text, req.body.entry[0].id);
             }
             else {
-                console.log('payload --- ' + event.message.text);
                 sendMessageSalesforceExtended(event.message.text, req.body.entry[0].id);
             }
         } else if (event.postback) {
-            let payload = event.postback.payload.split(",");
+            /*let payload = event.postback.payload.split(",");
             let postback = postbacks[payload[0]];
             if (postback && typeof postback === "function") {
                 postback(sender, payload);
             } else {
                 console.log("Postback " + postback + " is not defined");
-            }
+            }*/
+            sendMessageSalesforceExtended(event.postback.payload, req.body.entry[0].id);
         } else if (event.message && event.message.attachments) {
             uploads.processUpload(sender, event.message.attachments);
         }
