@@ -269,7 +269,7 @@ let sendRichMessageFacebook = (items) => {
         buttons.push({ "content_type":"text", "title":element.text, "payload":"<POSTBACK_PAYLOAD>"});
     });
 
-    var message = { "text": "Here is a quick reply!", "quick_replies": buttons};
+    var message = { "text": "", "quick_replies": buttons};
     messenger.send(message, '1272907342749383');
 
 }
