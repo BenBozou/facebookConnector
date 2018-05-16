@@ -88,11 +88,11 @@ app.post('/webhook', (req, res) => {
     for (let i = 0; i < events.length; i++) {
         let event = events[i];
         let sender = event.sender.id;
+        console.log(event);
         if (process.env.MAINTENANCE_MODE && ((event.message && event.message.text) || event.postback)) {
             sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
         } else if (event.message && event.message.text) {
             text = event.message.text;
-            
         } else if (event.postback) {
             /*let payload = event.postback.payload.split(",");
             let postback = postbacks[payload[0]];
@@ -313,7 +313,8 @@ let sendRichMessageFacebook = (items) => {
     var i = 0;
     items.forEach(element => {
         console.log(element);
-        buttons.push({ "content_type":"text", "title":element.text, "payload":'ChatWindowMenu:' + element.text + ':' + i});
+        var payload = "ChatWindowMenu:" + element.text + ":" + i;
+        buttons.push({ "content_type":"text", "title":element.text, "payload":payload});
         i++;
     });
 
