@@ -14,7 +14,7 @@ var express = require('express'),
 
 var mapIdSession = {};
 
-var endpoint = "https://d.la1-c1cs-lon.salesforceliveagent.com/chat/rest";
+var endpoint = "https://d.la4-c1-phx.salesforceliveagent.com/chat/rest/";
 
 let addValueToList = (key, value) => {
     mapIdSession[key] = mapIdSession[key] || [];
@@ -123,7 +123,7 @@ app.post('/webhook', (req, res) => {
 
 let sendMessageSalesforce = (text, customerId) => {
     var options = {
-        url: endpoint + '/Chasitor/ChatMessage',
+        url: endpoint + 'Chasitor/ChatMessage',
         method: 'POST',
         headers: {
             "X-LIVEAGENT-AFFINITY" : mapIdSession[customerId][0].affinityToken,
@@ -149,7 +149,7 @@ let sendMessageSalesforce = (text, customerId) => {
 let startSession = (text, customerId) => {
 
     var optionsStartSession = {
-        url: endpoint + '/System/SessionId',
+        url: endpoint + 'System/SessionId',
         method: 'GET',
         headers: {
             "X-LIVEAGENT-AFFINITY" : null,
@@ -173,7 +173,7 @@ let startSession = (text, customerId) => {
 let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) => {
 
     var options = {
-        url: endpoint + '/Chasitor/ChasitorInit',
+        url: endpoint + 'Chasitor/ChasitorInit',
         method: 'POST',
         headers: {
             "X-LIVEAGENT-AFFINITY" : affinityToken,
@@ -213,7 +213,7 @@ let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) =>
 
 let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, customerId) => {
     var options = {
-        url: endpoint + '/System/Messages',
+        url: endpoint + 'System/Messages',
         method: 'GET',
         headers: {
             "X-LIVEAGENT-AFFINITY" : affinityToken,
