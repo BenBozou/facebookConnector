@@ -153,6 +153,7 @@ let sendMessageSalesforce = (text, customerId) => {
 }
 
 let sendMessageSalesforceRich = (text, customerId) => {
+    console.log(text);
     var res = text.split(":");
     console.log('' + res);
     var options = {
