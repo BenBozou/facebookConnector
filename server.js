@@ -305,7 +305,7 @@ let sendRichMessageFacebook = (items) => {
         i++;
     });
 
-    var message = { "text": "", "quick_replies": buttons};
+    var message = { "text": ".", "quick_replies": buttons};
     messenger.send(message, '1272907342749383');
 
 }
