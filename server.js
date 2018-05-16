@@ -236,7 +236,7 @@ let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) =>
     function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
             //sendMessageSalesforce(text, customerId);
-            startLongPolling(affinityToken, sessionKey, session, 1, customerId);
+            setTimeout(startLongPolling, 2000, affinityToken, sessionKey, session, 1, customerId);
         } else {
             console.log('Error in Chasitor: ' + response.statusCode);
             console.log('result: ' + body);
@@ -287,7 +287,7 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
                 });
             }
             if (!(mapIdSession[customerId] == undefined)) {
-                startLongPolling(affinityToken, sessionKey, session, lastSentRequest+1, customerId);
+                setTimeout(startLongPolling, 2000, affinityToken, sessionKey, session, lastSentRequest+1, customerId);
             }
         } else {
             console.log('Error in Chasitor: ' + response.statusCode);
