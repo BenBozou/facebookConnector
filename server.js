@@ -128,7 +128,7 @@ let sendMessageSalesforce = (text, customerId) => {
         headers: {
             "X-LIVEAGENT-AFFINITY" : mapIdSession[customerId][0].affinityToken,
             "X-LIVEAGENT-SESSION-KEY" : mapIdSession[customerId][0].key,
-            "X-LIVEAGENT-API-VERSION" : 40
+            "X-LIVEAGENT-API-VERSION" : 42
         },
         json: true,
         body: {
@@ -153,7 +153,7 @@ let startSession = (text, customerId) => {
         method: 'GET',
         headers: {
             "X-LIVEAGENT-AFFINITY" : null,
-            "X-LIVEAGENT-API-VERSION" : 40
+            "X-LIVEAGENT-API-VERSION" : 42
         }
     };
 
@@ -177,7 +177,7 @@ let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) =>
         method: 'POST',
         headers: {
             "X-LIVEAGENT-AFFINITY" : affinityToken,
-            "X-LIVEAGENT-API-VERSION" : 40,
+            "X-LIVEAGENT-API-VERSION" : 42,
             "X-LIVEAGENT-SESSION-KEY" : sessionKey,
             "X-LIVEAGENT-SEQUENCE" : 1
         },
@@ -217,7 +217,7 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
         method: 'GET',
         headers: {
             "X-LIVEAGENT-AFFINITY" : affinityToken,
-            "X-LIVEAGENT-API-VERSION" : 40,
+            "X-LIVEAGENT-API-VERSION" : 42,
             "X-LIVEAGENT-SESSION-KEY" : sessionKey,
         }
     };
