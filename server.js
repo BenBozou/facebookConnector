@@ -93,6 +93,7 @@ app.post('/webhook', (req, res) => {
                 startSession(event.message.text, req.body.entry[0].id);
             }
             else {
+                console.log('payload --- ' + event.message.text);
                 sendMessageSalesforceExtended(event.message.text, req.body.entry[0].id);
             }
         } else if (event.postback) {
