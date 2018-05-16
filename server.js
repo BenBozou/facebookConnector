@@ -14,6 +14,8 @@ var express = require('express'),
 
 var mapIdSession = {};
 
+var endpoint = "https://d.la1-c1cs-lon.salesforceliveagent.com/chat/rest";
+
 let addValueToList = (key, value) => {
     mapIdSession[key] = mapIdSession[key] || [];
     mapIdSession[key].push(value);
@@ -121,7 +123,7 @@ app.post('/webhook', (req, res) => {
 
 let sendMessageSalesforce = (text, customerId) => {
     var options = {
-        url: 'https://d.la1-c1cs-lon.salesforceliveagent.com/chat/rest/Chasitor/ChatMessage',
+        url: endpoint + '/Chasitor/ChatMessage',
         method: 'POST',
         headers: {
             "X-LIVEAGENT-AFFINITY" : mapIdSession[customerId][0].affinityToken,
@@ -147,7 +149,7 @@ let sendMessageSalesforce = (text, customerId) => {
 let startSession = (text, customerId) => {
 
     var optionsStartSession = {
-        url: 'https://d.la1-c1cs-lon.salesforceliveagent.com/chat/rest/System/SessionId',
+        url: endpoint + '/System/SessionId',
         method: 'GET',
         headers: {
             "X-LIVEAGENT-AFFINITY" : null,
@@ -171,7 +173,7 @@ let startSession = (text, customerId) => {
 let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) => {
 
     var options = {
-        url: 'https://d.la1-c1cs-lon.salesforceliveagent.com/chat/rest/Chasitor/ChasitorInit',
+        url: endpoint + '/Chasitor/ChasitorInit',
         method: 'POST',
         headers: {
             "X-LIVEAGENT-AFFINITY" : affinityToken,
@@ -211,7 +213,7 @@ let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) =>
 
 let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, customerId) => {
     var options = {
-        url: 'https://d.la1-c1cs-lon.salesforceliveagent.com/chat/rest/System/Messages',
+        url: endpoint + '/System/Messages',
         method: 'GET',
         headers: {
             "X-LIVEAGENT-AFFINITY" : affinityToken,
@@ -223,8 +225,10 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
     function callback(error, response, body) {
         if (!error && (response.statusCode == 200 || response.statusCode == 204)) {
             if (!(body == '' || body == 'OK')) {
+                console.log(body);
                 var bodyJson = JSON.parse(body);
                 bodyJson.messages.forEach(messageJson => {
+                    console.log(messageJson.type);
                     if (messageJson.type == 'ChatMessage') {
                         messenger.send({text: `${messageJson.message.text}`}, '1272907342749383');
                     }
