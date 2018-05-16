@@ -109,13 +109,13 @@ app.post('/webhook', (req, res) => {
     }
 
     if (payload) {
-        sendMessageSalesforceExtended(event.postback.payload, req.body.entry[0].id);
+        sendMessageSalesforceExtended(payload, req.body.entry[0].id);
     } else if (text) {
         if (!mapIdSession[req.body.entry[0].id]) {
-            startSession(event.message.text, req.body.entry[0].id);
+            startSession(text, req.body.entry[0].id);
         }
         else {
-            sendMessageSalesforceExtended(event.message.text, req.body.entry[0].id);
+            sendMessageSalesforceExtended(text, req.body.entry[0].id);
         }
     }
 
