@@ -83,16 +83,23 @@ app.get('/webhook', (req, res) => {
 
 app.post('/webhook', (req, res) => {
     let events = req.body.entry[0].messaging;
-    var text;
-    var payload;
     for (let i = 0; i < events.length; i++) {
         let event = events[i];
         let sender = event.sender.id;
-        console.log(event);
         if (process.env.MAINTENANCE_MODE && ((event.message && event.message.text) || event.postback)) {
             sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
         } else if (event.message && event.message.text) {
-            text = event.message.text;
+            if (!mapIdSession[req.body.entry[0].id]) {
+                startSession(event.message.text, req.body.entry[0].id);
+            }
+            else {
+                if (event.message.quick_reply) {
+                    sendMessageSalesforceRich(event.message.text, req.body.entry[0].id);
+                } else {
+                    sendMessageSalesforce(event.message.text, req.body.entry[0].id);
+                }
+                //sendMessageSalesforceExtended(event.message.text, req.body.entry[0].id);
+            }
         } else if (event.postback) {
             /*let payload = event.postback.payload.split(",");
             let postback = postbacks[payload[0]];
@@ -101,24 +108,11 @@ app.post('/webhook', (req, res) => {
             } else {
                 console.log("Postback " + postback + " is not defined");
             }*/
-            payload = event.postback.payload;
-            
+            sendMessageSalesforceExtended(event.postback.payload, req.body.entry[0].id);
         } else if (event.message && event.message.attachments) {
             uploads.processUpload(sender, event.message.attachments);
         }
     }
-
-    if (payload) {
-        sendMessageSalesforceExtended(payload, req.body.entry[0].id);
-    } else if (text) {
-        if (!mapIdSession[req.body.entry[0].id]) {
-            startSession(text, req.body.entry[0].id);
-        }
-        else {
-            sendMessageSalesforceExtended(text, req.body.entry[0].id);
-        }
-    }
-
     res.sendStatus(200);
 });
 
@@ -132,13 +126,6 @@ app.post('/webhook', (req, res) => {
     res.sendStatus(200);
 });
 */
-let sendMessageSalesforceExtended = (text, customerId) => {
-    if (text.startsWith('ChatWindowMenu')) {
-        sendMessageSalesforceRich(text, customerId);
-    } else {
-        sendMessageSalesforce(text, customerId);
-    }
-}
 
 let sendMessageSalesforce = (text, customerId) => {
     var options = {
@@ -313,8 +300,7 @@ let sendRichMessageFacebook = (items) => {
     var i = 0;
     items.forEach(element => {
         console.log(element);
-        var payload = "ChatWindowMenu:" + element.text + ":" + i;
-        buttons.push({ "content_type":"text", "title":element.text, "payload":payload});
+        buttons.push({ "content_type":"text", "title":element.text, "payload":'ChatWindowMenu:' + element.text + ':' + i});
         i++;
     });
 
