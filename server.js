@@ -153,9 +153,7 @@ let sendMessageSalesforce = (text, customerId) => {
 }
 
 let sendMessageSalesforceRich = (text, customerId) => {
-    console.log(text);
     var res = text.split(":");
-    console.log('' + res);
     var options = {
         url: endpoint + 'Chasitor/RichMessage',
         method: 'POST',
@@ -263,15 +261,17 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
         if (!error && (response.statusCode == 200 || response.statusCode == 204)) {
             if (!(body == '' || body == 'OK')) {
                 console.log(body);
+                if (body.includes('RichMessage')) {
+                    console.log('------------ Rich message identified -------------');
+                }
                 var bodyJson = JSON.parse(body);
                 bodyJson.messages.forEach(messageJson => {
-                    console.log(messageJson.type);
                     if (messageJson.type == 'ChatMessage') {
                         messenger.send({text: `${messageJson.message.text}`}, '1272907342749383');
                     }
                     if (messageJson.type == 'RichMessage') {
-                        if (messageJson.message.type == 'ChatWindowMenu') {
-                            sendRichMessageFacebook(messageJson.message.items);
+                        if (messageJson.message.type == 'ChatWindowMenu' || messageJson.message.type == 'ChatWindowButton') {
+                            sendRichMessageFacebook(messageJson.message);
                         } else {
                             messenger.send({text: `${messageJson.message.text}`}, '1272907342749383');
                         }
@@ -295,15 +295,11 @@ let startLongPolling = (affinityToken, sessionKey, session, lastSentRequest, cus
 
 }
 
-let sendRichMessageFacebook = (items) => {
-
-    console.log(items);
-
+let sendRichMessageFacebook = (message) => {
     var buttons = [];
     var i = 0;
-    items.forEach(element => {
-        console.log(element);
-        buttons.push({ "content_type":"text", "title":element.text, "payload":'ChatWindowMenu:' + element.text + ':' + i});
+    message.items.forEach(element => {
+        buttons.push({ "content_type":"text", "title":element.text, "payload":message.type + ':' + element.text + ':' + i});
         i++;
     });
 
