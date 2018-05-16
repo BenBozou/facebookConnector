@@ -167,7 +167,7 @@ let sendMessageSalesforceRich = (text, customerId) => {
         },
         json: true,
         body: {
-            {"actions":[{"type":res[0],"index":res[2],"dialogId":null,"value":res[1]}]}
+            "actions":[{"type":res[0],"index":res[2],"dialogId":null,"value":res[1]}]
         }
     };
 
