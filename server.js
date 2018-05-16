@@ -200,7 +200,7 @@ let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) =>
 
     function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
-            sendMessageSalesforce(text, customerId);
+            //sendMessageSalesforce(text, customerId);
             startLongPolling(affinityToken, sessionKey, session, 1, customerId);
         } else {
             console.log('Error in Chasitor: ' + response.statusCode);
