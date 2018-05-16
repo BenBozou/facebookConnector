@@ -265,7 +265,7 @@ let sendRichMessageFacebook = (items) => {
 
     items.forEach(element => {
         console.log(element);
-        buttons.add({ "type":"postback", "title":element.text, "payload":"DEVELOPER_DEFINED_PAYLOAD" })
+        buttons.push({ "type":"postback", "title":element.text, "payload":"DEVELOPER_DEFINED_PAYLOAD" })
     });
 
     var message = { "attachment":{ "type":"template", "payload":{ "template_type":"button", "text":"Try the postback button!", "buttons": buttons } } }
