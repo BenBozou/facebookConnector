@@ -226,7 +226,14 @@ let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) =>
             language:"en-US",
             screenResolution:"1680x1050",
             visitorName:"Ben",
-            prechatDetails:[],
+            prechatDetails:[{
+                        label: "Channel",
+                        value: "Facebook",
+                        transcriptFields: [
+                                "Channel__c"
+                        ],
+                        displayToAgent: true
+                }],
             receiveQueueUpdates:true,
             prechatEntities:[],
             isPost:true
