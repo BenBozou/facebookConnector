@@ -14,7 +14,7 @@ var express = require('express'),
 
 var mapIdSession = {};
 
-var endpoint = "https://c.gla3-phx.gus.salesforce.com/chat/rest/";
+var endpoint = "https://d.la2-c2-ord.salesforceliveagent.com/chat/rest/";
 
 let addValueToList = (key, value) => {
     mapIdSession[key] = mapIdSession[key] || [];
@@ -218,9 +218,9 @@ let startVisitorChat = (affinityToken, sessionKey, session, customerId, text) =>
         },
         json: true,
         body: {
-            organizationId:"00DB0000000LYm9",
-            deploymentId:"572B00000005EhQ",
-            buttonId:"573B00000005OhP",
+            organizationId:"00D1H000000Mkwc",
+            deploymentId:"5721H000000XhvG",
+            buttonId:"5731H000000bu4J",
             sessionId: session,
             userAgent:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
             language:"en-US",
