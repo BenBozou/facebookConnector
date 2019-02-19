@@ -14,7 +14,7 @@ var express = require('express'),
 
 var mapIdSession = {};
 
-var endpoint = "https://c.gla3-phx.gus.salesforce.com/chat/rest/";
+var endpoint = "https://d.gla3-dfw.gus.salesforce.com/chat/rest/";
 
 let addValueToList = (key, value) => {
     mapIdSession[key] = mapIdSession[key] || [];
