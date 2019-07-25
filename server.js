@@ -73,14 +73,15 @@ app.get('/home', (req, res) => {
     let response = '<html>';
 
     response += '<head>';
-    response += '<script src="https://devp1-cellcom.cs81.force.com/SuppliersCommunity/lightning/lightning.out.js"></script>';
-    response += '<link href="https://devp1-cellcom.cs81.force.com/SuppliersCommunity/resource/1559716036000/vlocity_cmt__slds/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css" charset="utf-8" type="text/css" rel="stylesheet">';
+    response += '<script src="https://cellcom--devp1.lightning.force.com/lightning/lightning.out.js"></script>';
+    response += '<link href="https://cellcom--devp1.lightning.force.com/resource/1559716036000/vlocity_cmt__slds/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css" charset="utf-8" type="text/css" rel="stylesheet">';
     response += '</head>';
     response += '<body>';
     response += '<div id="lightning" class="vlocity via-slds cellcom"></div>';
-    response += '<script> $Lightning.use("c:WebsiteOutApp", function() {' +
-        '            $Lightning.createComponent("c:basicComponent", {}, "lightning", function(cmp) { console.log("lightning comp generated") })' +
-        '        }, "https://devp1-cellcom.cs81.force.com/SuppliersCommunity");' +
+    response += '<script> $Lightning.use("c:OrderCaptureOutApp", function() {' +
+        '            $Lightning.createComponent("c:orderCapture", {recordId : ""}, "lightning", function(cmp) { console.log("lightning comp generated") })' +
+        '        }, "https://cellcom--devp1.lightning.force.com",' +
+        '"00D260000001Bh5!ARYAQH_lmHzjw_mO.ZC3rKgk_9vpEQgyIQAHFmF03Ps04a9k.VjaY8k6X2eAuU9RW7gIv9upM3Iju6Y46ksAjs5AYAZwAOEt");' +
         '    </script>';
     response += '</body>';
     response += '</html>';
