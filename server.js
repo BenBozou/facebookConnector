@@ -77,16 +77,9 @@ app.get('/home', (req, res) => {
     response += '</head>';
     response += '<body>';
     response += '<div id="lightning"></div>';
-    response += '<script>\n' +
-        '        $Lightning.use("c:WebsiteOutApp", function() {\n' +
-        '            $Lightning.createComponent("c:basicComponent",\n' +
-        '            {},\n' +
-        '            "lightning",\n' +
-        '            function(cmp) {\n' +
-        ' console.log("lightning comp generated")\n' +
-        '            })\n' +
-        '        },' +
-        '"https://devp1-cellcom.cs81.force.com/SuppliersCommunity/");\n' +
+    response += '<script> $Lightning.use("c:WebsiteOutApp", function() {' +
+        '            $Lightning.createComponent("c:basicComponent", {}, "lightning", function(cmp) { console.log("lightning comp generated") })' +
+        '        }, "https://devp1-cellcom.cs81.force.com/SuppliersCommunity");' +
         '    </script>';
     response += '</body>';
     response += '</html>';
