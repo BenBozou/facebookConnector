@@ -77,7 +77,6 @@ app.get('/home', (req, res) => {
     response += '</head>';
     response += '<body>';
     response += '<div id="lightning"></div>';
-    response += '</body>';
     response += '<script>\n' +
         '        $Lightning.use("c:WebsiteOutApp", function() {\n' +
         '            $Lightning.createComponent("c:basicComponent",\n' +
@@ -89,7 +88,7 @@ app.get('/home', (req, res) => {
         '        },' +
         '"https://devp1-cellcom.cs81.force.com/SuppliersCommunity");\n' +
         '    </script>';
-
+    response += '</body>';
     response += '</html>';
     res.send(response);
 });
