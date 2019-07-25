@@ -86,7 +86,7 @@ app.get('/home', (req, res) => {
     response += '<script> $Lightning.use("c:OrderCaptureOutApp", function() {' +
         '            $Lightning.createComponent("c:orderCapture", {recordId : "80126000002fnWe"}, "lightning", function(cmp) { console.log("lightning comp generated") })' +
         '        }, "https://cellcom--devp1.lightning.force.com",' +
-        '"00D260000001Bh5!ARYAQH_lmHzjw_mO.ZC3rKgk_9vpEQgyIQAHFmF03Ps04a9k.VjaY8k6X2eAuU9RW7gIv9upM3Iju6Y46ksAjs5AYAZwAOEt");' +
+        '"00D260000001Bh5!ARYAQCsRlQamJZkS1WI3jveaRG58sh_DzM8O1YOfLRRU.QaZ9j2VDz2l7lg9xhPznv7K2xeruM4_qjvt7CVlteH31crkKeU_");' +
         '    </script>';
     response += '</body>';
     response += '</html>';
