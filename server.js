@@ -91,7 +91,7 @@ app.get('/home', (req, res) => {
         '    </script>';
 
     response += '</html>';
-    res.send('response');
+    res.send(response);
 });
 
 
