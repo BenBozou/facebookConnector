@@ -70,7 +70,7 @@ app.post('/webhook', (req, res) => {
 
 app.get('/home', (req, res) => {
 
-    res.send('Hello, World!');
+    res.send('<h1>Hello, World!</h1>');
 });
 
 
