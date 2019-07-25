@@ -86,7 +86,7 @@ app.get('/home', (req, res) => {
         ' console.log("lightning comp generated")\n' +
         '            })\n' +
         '        },' +
-        '"https://devp1-cellcom.cs81.force.com/SuppliersCommunity");\n' +
+        '"https://devp1-cellcom.cs81.force.com/SuppliersCommunity/");\n' +
         '    </script>';
     response += '</body>';
     response += '</html>';
