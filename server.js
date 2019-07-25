@@ -70,7 +70,28 @@ app.post('/webhook', (req, res) => {
 
 app.get('/home', (req, res) => {
 
-    res.send('<h1>Hello, World!</h1>');
+    let response = '<html>';
+
+    response += '<head>';
+    response += '<script src="https://devp1-cellcom.cs81.force.com/SuppliersCommunity/lightning/lightning.out.js"></script>';
+    response += '</head>';
+    response += '<body>';
+    response += '<div id="lightning"></div>';
+    response += '</body>';
+    response += '<script>\n' +
+        '        $Lightning.use("c:WebsiteOutApp", function() {\n' +
+        '            $Lightning.createComponent("c:basicComponent",\n' +
+        '            {},\n' +
+        '            "lightning",\n' +
+        '            function(cmp) {\n' +
+        ' console.log("lightning comp generated")\n' +
+        '            })\n' +
+        '        },' +
+        '"https://devp1-cellcom.cs81.force.com/SuppliersCommunity");\n' +
+        '    </script>';
+
+    response += '</html>';
+    res.send('response');
 });
 
 
