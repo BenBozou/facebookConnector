@@ -74,9 +74,10 @@ app.get('/home', (req, res) => {
 
     response += '<head>';
     response += '<script src="https://devp1-cellcom.cs81.force.com/SuppliersCommunity/lightning/lightning.out.js"></script>';
+    response += '<link href="https://devp1-cellcom.cs81.force.com/SuppliersCommunity/resource/1559716036000/vlocity_cmt__slds/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css" charset="utf-8" type="text/css" rel="stylesheet">';
     response += '</head>';
     response += '<body>';
-    response += '<div id="lightning"></div>';
+    response += '<div id="lightning" class="vlocity via-slds cellcom"></div>';
     response += '<script> $Lightning.use("c:WebsiteOutApp", function() {' +
         '            $Lightning.createComponent("c:basicComponent", {}, "lightning", function(cmp) { console.log("lightning comp generated") })' +
         '        }, "https://devp1-cellcom.cs81.force.com/SuppliersCommunity");' +
