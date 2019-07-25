@@ -67,6 +67,13 @@ app.post('/webhook', (req, res) => {
     res.sendStatus(200);
 });*/
 
+
+app.get('/home', (req, res) => {
+
+    res.send('Hello, World!');
+});
+
+
 app.get('/webhook', (req, res) => {
 
     
