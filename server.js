@@ -79,7 +79,7 @@ app.get('/home', (req, res) => {
     response += '<body>';
     response += '<div id="lightning" class="vlocity via-slds cellcom"></div>';
     response += '<script> $Lightning.use("c:OrderCaptureOutApp", function() {' +
-        '            $Lightning.createComponent("c:orderCapture", {recordId : ""}, "lightning", function(cmp) { console.log("lightning comp generated") })' +
+        '            $Lightning.createComponent("c:orderCapture", {recordId : "80126000002fnWe"}, "lightning", function(cmp) { console.log("lightning comp generated") })' +
         '        }, "https://cellcom--devp1.lightning.force.com",' +
         '"00D260000001Bh5!ARYAQH_lmHzjw_mO.ZC3rKgk_9vpEQgyIQAHFmF03Ps04a9k.VjaY8k6X2eAuU9RW7gIv9upM3Iju6Y46ksAjs5AYAZwAOEt");' +
         '    </script>';
